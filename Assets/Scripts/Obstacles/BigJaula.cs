@@ -17,7 +17,8 @@ public class BigJaula : MonoBehaviour
     public AudioClip magicSound;
     public AudioClip noAccessSound;
     private bool onlyOneTime;
-    public GameplayCanvasManager gameplayCanvas;
+    public GameplayCanvasManager gamePlayCanvas;
+    public GameObject todo;
 
     private void Update()
     {
@@ -56,7 +57,7 @@ public class BigJaula : MonoBehaviour
             }
         }
 
-        if(_rojoOpen && _azulOpen && _violeta)
+        if(_rojoOpen && _azulOpen && _violetaOpen)
         {
             StartCoroutine("AbrirJaula");
         }
@@ -78,13 +79,17 @@ public class BigJaula : MonoBehaviour
 
     private IEnumerator AbrirJaula()
     {
-        yield return new WaitForSeconds(3);
-        audioSource.PlayOneShot(openSound);
-        gameplayCanvas.onWin();
-        Destroy(gameObject, 3f);
-
         
+        yield return new WaitForSeconds(2);
+        audioSource.PlayOneShot(openSound);
 
-        //LLAMAR A LA FUNCION DE VICTORIA DE LA UI
+        Destroy(todo.gameObject);
+
+        yield return new WaitForSeconds(1);
+        if (gamePlayCanvas != null)
+        {
+            gamePlayCanvas.onWin();
+        }
+        
     }
 }
